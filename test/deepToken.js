@@ -51,4 +51,22 @@ contract(DeepToken , function(accounts){
             assert(sender , 1000000 - 25000 , 'subtract the tokens from senders account ')
         })
     })
+
+    it('approves token for delegate transfer ' , ()=>{
+        return DeepToken.deployed().then((instance)=>{
+            tokenInstance = instance;
+            return tokenInstance.approve.call(accounts[1] , 100);
+        }).then((sucess)=>{
+            assert.equal(sucess , true , 'sucess is true')
+            return tokenInstance.approve(accounts[1] , 100);
+        }).then((reciept)=>{
+            assert(reciept.logs.length,1,'trigger one event')
+            assert(reciept.logs[0].event,'Approve','should trigger Approve event')
+            assert(reciept.logs[0].args._owner,accounts[0],'logs the account the tokens are authorized by')
+            assert(reciept.logs[0].args._spender,accounts[1],'logs the account the tokens are authorized to')
+            assert(reciept.logs[0].args._value,100,'logs the  token value authorized')
+            
+           
+        })
+    });
 })

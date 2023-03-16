@@ -10,6 +10,8 @@ contract DeepToken{
 
     event Transfer(address indexed _from , address indexed _to , uint256 _value);
 
+    event Approve(address indexed _owner , address indexed _spender , uint256 _value);
+
     mapping(address => uint256) public balance_of;
     constructor(uint256 _initialSupply){
         balance_of[msg.sender] = _initialSupply;
@@ -24,6 +26,11 @@ contract DeepToken{
         emit Transfer(msg.sender, _to, _value);
         return true ;
     }
-    
 
+    function approve(address _spender , uint256 _value)public returns (bool sucess){
+
+        emit Approve(msg.sender, _spender, _value);
+        return true;
+    }
+    
 }
