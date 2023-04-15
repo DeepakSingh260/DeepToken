@@ -11,10 +11,11 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
       backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8',
     },
   }));
-const BorderBar=({val})=>{
+const BorderBar=({num , denom})=>{
+  const val = num/denom;
     return(
-        <div style={{margin:'10'}}>
-            <BorderLinearProgress variant="determinate" value={val}/>
+        <div >
+            <BorderLinearProgress variant="determinate" value={num*100/denom}/>
         </div>
     )
 }
